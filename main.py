@@ -1,18 +1,20 @@
-import numpy as np
 import tensorflow as tf
 import sklearn
-import mnist
 from tensorflow.keras.datasets import mnist
+import sklearn
+import tensorflow as tf
+from tensorflow.keras.datasets import mnist
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dropout, Dense
 
 print(sklearn.__version__)
 print(tf.__version__)
 
 (train_images, train_labels), \
-    (test_images, test_labels) = mnist.load_data()
+(test_images, test_labels) = mnist.load_data()
 
 print(train_images.shape, train_labels.shape)
 print(test_images.shape, test_labels.shape)
-
 
 img_rows, img_cols = 28, 28
 channels = 1
@@ -20,7 +22,6 @@ input_shape = img_rows, img_cols, channels
 num_classes = 10
 batch_size = 64
 epochs = 12
-
 
 # Add channel dimension
 train_images = train_images.reshape(train_images.shape[0], img_rows, img_cols, 1)
@@ -38,15 +39,11 @@ train_labels = tf.keras.utils.to_categorical(train_labels, num_classes)
 test_labels = tf.keras.utils.to_categorical(test_labels, num_classes)
 
 # Model
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Activation, Flatten, Dropout, Dense
-from tensorflow.keras.layers import BatchNormalization
-
 model = Sequential([
     Conv2D(16, kernel_size=(3, 3), input_shape=[28, 28, 1], activation='relu'),
-    MaxPooling2D(pool_size=(2,2)),
-    Conv2D(32, kernel_size=(3,3), activation='relu'),
-    MaxPooling2D(pool_size=(2,2)),
+    MaxPooling2D(pool_size=(2, 2)),
+    Conv2D(32, kernel_size=(3, 3), activation='relu'),
+    MaxPooling2D(pool_size=(2, 2)),
     Dropout(0.2),
     Flatten(),
     Dense(120, activation='relu'),
