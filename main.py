@@ -21,7 +21,7 @@ channels = 1
 input_shape = img_rows, img_cols, channels
 num_classes = 10
 batch_size = 64
-epochs = 12
+epochs = 2
 
 # Add channel dimension
 train_images = train_images.reshape(train_images.shape[0], img_rows, img_cols, 1)
@@ -61,7 +61,7 @@ print("Begin training...")
 history = model.fit(train_images, train_labels, epochs=epochs,
                     validation_split=0.1, batch_size=batch_size)
 
-score = model.evaluate(test_images, test_labels)
+score = model.evaluate(test_images, test_labels, verbose=0)
 
 print("Test Loss: ", score[0])
 print("Test Accuracy: ", score[1])
